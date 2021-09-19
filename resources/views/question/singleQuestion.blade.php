@@ -6,9 +6,9 @@
     <div class="card-body">
         {{-- <h4 class="card-title">Add Questions</h4> --}}
         <div class="container">
-            <form action="{{ route('singleQuestion.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('singlequestion.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                {{-- @include('layouts.inc.message') --}}
+                @include('layouts.inc.message')
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -19,13 +19,15 @@
                         </ul>
                     </div>
                 @endif
-                <div class="form-group">
-                    <label for="subject">Enter Subject Name</label>
-                    <input class="form-control" type="text" placeholder="Example Math" name="subject">
-                    <label for="subject-image">Upload Subject Image</label>
-                    <input type="file" class="form-control-file" id="" name="image">
-                </div>
+                    <div class="form-group">
+                        <label for="correct_answer">Select Subject</label>
+                        <select class="form-control" id="id" name="subject">
+                        @foreach ($subjects as $subject)
+                            <option value="{{ $subject->id }}">{{ $subject->subject }}</option>
+                        @endforeach
 
+                    </select>
+                    </div>
                 <div class="form-group">
                     <label for="subject Topic">Enter Subject Topic</label>
                     <input class="form-control" type="text" placeholder="Example linear equation" name="topic">
@@ -36,7 +38,7 @@
                     </select>
                     <label for="topic_image">Upload Topic Image</label>
                     <input type="file" class="form-control-file" id="" name="images">
-                </div>  
+                </div>
 
                 <div class="form-group">
                     <label for="Question">Enter Question</label>
@@ -68,7 +70,7 @@
                         </div>
                         <input class="form-control" type="text" placeholder="Example: 5" name="answer4">
                     </div>
-                    
+
                     <label for="correct_answer">Select Correct</label>
                     <select class="form-control" id="correct_answer" name="correct_answer">
                       <option value="1">A</option>
@@ -88,9 +90,9 @@
                 <button type="submit" class="btn btn-primary">Submit Question</button>
             </form>
         </div>
-        
-        
-        
+
+
+
     </div>
 </div>
 

@@ -1,19 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Question;
 
+use App\Http\Controllers\Controller;
 use App\Models\Question;
 use App\Models\Subject;
 use App\Models\SubjectCategory;
 use Illuminate\Http\Request;
 
-class QuestionController extends Controller
+class SingleQuestionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
 
@@ -26,7 +22,10 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        return view('question.singleQuestion');
+        $subject = Subject::all();
+        return view('question.singleQuestion',[
+            'subjects' => $subject,
+        ]);
     }
 
     /**
@@ -37,7 +36,9 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->subject);
         $request->validate([
+            'subject' => 'required',
             'topic' => 'required',
             'language' => 'required',
             'images' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
@@ -58,12 +59,12 @@ class QuestionController extends Controller
             $images->move($destinationPath, $profileImage);
             $input['images'] = "$profileImage";
         }
-        
+
         $subject_category=SubjectCategory::create([
             'topic' => $request->topic,
             'language' =>$request->language,
             'images' => $request->images,
-            'subjects_id' => $subject->id,
+            'subjects_id' => $request->subject,
         ]);
 
         Question::create([
@@ -82,48 +83,4 @@ class QuestionController extends Controller
         // return redirect()->route('singleQuestion.show')->with('success','one question has been created');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

@@ -237,12 +237,12 @@ return [
         ],
 
         // Sidebar items:
-       
+
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
-            
+
         ],
         [
             'text'        => 'Dashboard',
@@ -261,13 +261,24 @@ return [
             'icon' => 'fas fa-plus-circle',
             'url'  => '#',
         ],
-        
+
         ['header' => 'Question Management'],
         [
             'url'  => 'admin/settings',
             'text'    => 'Add Questions',
             'icon'    => 'far fa-question-circle',
             'submenu' => [
+                [
+                    'text' => 'Questions',
+                    'url'  => '#',
+                    'icon' => 'fas fa fa-tasks',
+                ],
+                [
+                    'text' => 'Add the Subject',
+                    'url'  => 'subject/create',
+                    'icon' => 'fas fa-file-import',
+                ],
+
                 [
                     'text' => 'Import Bulk Questions',
                     'url'  => '#',
@@ -277,12 +288,10 @@ return [
                     'text'    => 'Add single Questions',
                     'url'     => 'singleQuestion/create',
                     'icon' => 'fal fa-file-import'
-
-                   
                 ],
             ],
         ],
-       
+
     ],
 
     /*
